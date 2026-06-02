@@ -35,29 +35,26 @@
       flex-direction: column;
       align-items: center;
       z-index: 10;
+      position: relative;
     }
 
-    /* 开屏纱幔——只占边缘装饰 */
-    .veil {
+    /* 开屏——横屏展开幕布 */
+    .curtain-top, .curtain-bottom {
       position: fixed;
-      top: 0;
-      width: 12%;
-      height: 100%;
+      left: 0;
+      width: 100%;
+      height: 50vh;
       background: #fce9e2;
       z-index: 999;
       transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
-    .veil.left { left: 0; background: linear-gradient(to right, #f8d5c4, #fbe8df); }
-    .veil.right { right: 0; background: linear-gradient(to left, #f8d5c4, #fbe8df); }
-    .veil.mid-left { left: 12%; background: #fae3d7; }
-    .veil.mid-right { right: 12%; background: #fae3d7; }
-    .veil.left.open { transform: translateX(-100%); }
-    .veil.right.open { transform: translateX(100%); }
-    .veil.mid-left.open { transform: translateX(-100%); }
-    .veil.mid-right.open { transform: translateX(100%); }
+    .curtain-top { top: 0; background: linear-gradient(to bottom, #f8d5c4, #fbe8df); }
+    .curtain-bottom { bottom: 0; background: linear-gradient(to top, #f8d5c4, #fbe8df); }
+    .curtain-top.open { transform: translateY(-100%); }
+    .curtain-bottom.open { transform: translateY(100%); }
 
-    /* 牛皮纸弹窗 */
+    /* 弹窗 */
     .popup {
       position: fixed;
       top: 50%;
@@ -103,7 +100,6 @@
       50% { filter: drop-shadow(0 2px 18px rgba(220,160,60,0.9)); }
     }
 
-    /* 卡片 */
     .card {
       width: 100%;
       background: rgba(255, 245, 235, 0.7);
@@ -156,7 +152,6 @@
       font-weight: bold;
     }
 
-    /* 照片区 */
     .photo-section { width: 100%; margin: 22px 0; }
     .row-top, .row-bottom { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     .row-top .photo-item:nth-child(odd) { transform: translateY(-6px); }
@@ -195,7 +190,6 @@
     .scroll-row .photo-item { flex: 0 0 42%; scroll-snap-align: start; }
     .row-bottom .photo-item { width: 32%; }
 
-    /* 年轮 */
     .timer-ring {
       width: 140px;
       height: 140px;
@@ -249,10 +243,8 @@
 </head>
 <body>
 
-  <div class="veil left" id="veilL"></div>
-  <div class="veil mid-left" id="veilML"></div>
-  <div class="veil mid-right" id="veilMR"></div>
-  <div class="veil right" id="veilR"></div>
+  <div class="curtain-top" id="curtainTop"></div>
+  <div class="curtain-bottom" id="curtainBottom"></div>
   <div class="popup" id="popup">✍️ 给最爱的妈妈</div>
 
   <div class="container" id="mainContent">
@@ -278,9 +270,10 @@
 
   <script>
     (function() {
-      // 开屏
+      // 开屏——横屏幕布上下展开
       setTimeout(() => {
-        document.querySelectorAll('.veil').forEach(v => v.classList.add('open'));
+        document.getElementById('curtainTop').classList.add('open');
+        document.getElementById('curtainBottom').classList.add('open');
         const popup = document.getElementById('popup');
         popup.classList.add('show');
         setTimeout(() => popup.classList.add('hide'), 1600);
@@ -341,7 +334,7 @@
         }
       }
 
-      // 照片——预加载优化
+      // 照片
       const photoSection = document.getElementById('photoSection');
       const total = 17;
       const topRow = document.createElement('div'); topRow.className = 'row-top';
