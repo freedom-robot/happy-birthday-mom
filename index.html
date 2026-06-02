@@ -5,27 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=yes">
   <title>冯泽英 · 42岁生日快乐</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #fdf8f4;
       background: radial-gradient(circle at center, #f9e9e0 0%, #f5ddd0 40%, #eed9ce 100%);
-      font-family: "Noto Serif SC", "华文楷体", "KaiTi", "STKaiti", "楷体", "PingFang SC", "Microsoft YaHei", serif;
+      font-family: "Noto Serif SC", "华文楷体", "KaiTi", "STKaiti", "PingFang SC", "Microsoft YaHei", serif;
       min-height: 100vh;
       width: 100vw;
       overflow-x: hidden;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       animation: bodyBreath 6s ease-in-out infinite;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      touch-action: pan-y; 
+      touch-action: pan-y;
     }
 
     @keyframes bodyBreath {
@@ -33,23 +27,21 @@
       50% { background: radial-gradient(circle at center, #fdf3ed 0%, #f7e2d6 40%, #f0ddd1 100%); }
     }
 
-    /* 主容器 */
     .container {
       width: 100%;
       max-width: 450px;
-      position: relative;
-      padding: 20px 16px 40px;
+      padding: 20px 14px 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
       z-index: 10;
     }
 
-    /* 开屏纱幔 */
+    /* 开屏纱幔——只占边缘装饰 */
     .veil {
       position: fixed;
       top: 0;
-      width: 25%;
+      width: 12%;
       height: 100%;
       background: #fce9e2;
       z-index: 999;
@@ -58,9 +50,8 @@
     }
     .veil.left { left: 0; background: linear-gradient(to right, #f8d5c4, #fbe8df); }
     .veil.right { right: 0; background: linear-gradient(to left, #f8d5c4, #fbe8df); }
-    .veil.mid-left { left: 25%; background: #fae3d7; }
-    .veil.mid-right { right: 25%; background: #fae3d7; }
-    .veil.closed { transform: translateX(0); }
+    .veil.mid-left { left: 12%; background: #fae3d7; }
+    .veil.mid-right { right: 12%; background: #fae3d7; }
     .veil.left.open { transform: translateX(-100%); }
     .veil.right.open { transform: translateX(100%); }
     .veil.mid-left.open { transform: translateX(-100%); }
@@ -77,11 +68,11 @@
       background-size: 40px 40px;
       border: 3px solid #c9a87c;
       border-radius: 24px;
-      padding: 28px 22px;
+      padding: 24px 18px;
       box-shadow: 0 20px 40px rgba(120, 60, 30, 0.3);
       z-index: 1000;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #5d3a2c;
       font-weight: bold;
       letter-spacing: 3px;
@@ -89,26 +80,20 @@
       transition: opacity 0.6s, transform 0.8s;
       pointer-events: none;
     }
-    .popup.show {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-    }
-    .popup.hide {
-      opacity: 0;
-      transform: translate(-50%, -120%);
-    }
+    .popup.show { opacity: 1; }
+    .popup.hide { opacity: 0; transform: translate(-50%, -130%); }
 
     /* 标题 */
     .title {
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       font-weight: 700;
       background: linear-gradient(180deg, #d4a56a 0%, #b8863a 40%, #8b6914 70%, #c9a053 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(0 2px 4px rgba(180,120,40,0.4));
-      letter-spacing: 6px;
-      margin: 20px 0 10px;
+      letter-spacing: 5px;
+      margin: 16px 0 8px;
       animation: titleGlow 2.5s ease-in-out infinite;
       text-align: center;
       word-break: keep-all;
@@ -124,10 +109,9 @@
       background: rgba(255, 245, 235, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-radius: 36px;
-      padding: 24px 18px;
-      margin: 18px 0;
-      border: 2px solid transparent;
+      border-radius: 32px;
+      padding: 22px 16px;
+      margin: 16px 0;
       position: relative;
       box-shadow: 0 15px 30px rgba(160, 100, 60, 0.15);
       overflow: hidden;
@@ -138,7 +122,7 @@
       top: -2px; left: -2px; right: -2px; bottom: -2px;
       background: linear-gradient(45deg, #dbb45c, #f3d59c, #c9a24c, #e8c878, #b58b3c);
       background-size: 400% 400%;
-      border-radius: 38px;
+      border-radius: 34px;
       z-index: -1;
       animation: borderGlow 4s linear infinite;
     }
@@ -148,20 +132,20 @@
       100% { background-position: 0% 50%; }
     }
     .card-text {
-      font-size: 1.1rem;
-      line-height: 2;
+      font-size: 1.05rem;
+      line-height: 1.9;
       color: #4d3022;
       text-align: left;
-      min-height: 280px;
+      min-height: 260px;
       font-weight: 500;
     }
     .flower-btn {
       background: #f3d9c6;
       border: none;
       border-radius: 30px;
-      padding: 12px 24px;
-      margin-top: 18px;
-      font-size: 1.2rem;
+      padding: 10px 22px;
+      margin-top: 14px;
+      font-size: 1.1rem;
       cursor: pointer;
       color: #7b4a2c;
       box-shadow: 0 4px 10px rgba(150,80,20,0.2);
@@ -171,96 +155,81 @@
       gap: 6px;
       font-weight: bold;
     }
-    .flower-btn:active { transform: scale(0.95); background: #ecc9b0; }
 
     /* 照片区 */
-    .photo-section {
-      width: 100%;
-      margin: 25px 0;
-    }
-    .row-top, .row-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-    .row-top .photo-item:nth-child(odd) { transform: translateY(-8px); }
-    .row-top .photo-item:nth-child(even) { transform: translateY(8px); }
+    .photo-section { width: 100%; margin: 22px 0; }
+    .row-top, .row-bottom { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .row-top .photo-item:nth-child(odd) { transform: translateY(-6px); }
+    .row-top .photo-item:nth-child(even) { transform: translateY(6px); }
     .photo-item {
-      width: 28%;
+      width: 29%;
       aspect-ratio: 3/4;
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 8px 18px rgba(100, 50, 30, 0.2);
+      box-shadow: 0 6px 14px rgba(100, 50, 30, 0.18);
       transition: transform 0.3s;
       animation: floatPhoto 4s ease-in-out infinite;
+      background: #f0d9cc;
     }
     .photo-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: sepia(0.15) brightness(1.05);
-      border-radius: 24px;
+      filter: sepia(0.12) brightness(1.04);
+      border-radius: 20px;
+      display: block;
     }
     @keyframes floatPhoto {
       0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+      50% { transform: translateY(-5px); }
     }
     .scroll-row {
       display: flex;
       overflow-x: auto;
-      gap: 14px;
-      padding: 12px 4px;
-      margin: 12px 0;
+      gap: 12px;
+      padding: 10px 2px;
+      margin: 10px 0;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
-    .scroll-row .photo-item {
-      flex: 0 0 40%;
-      scroll-snap-align: start;
-    }
-    .row-bottom .photo-item {
-      width: 30%;
-    }
+    .scroll-row .photo-item { flex: 0 0 42%; scroll-snap-align: start; }
+    .row-bottom .photo-item { width: 32%; }
 
     /* 年轮 */
     .timer-ring {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       border: 4px solid #dbb45c;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 24px auto;
+      margin: 20px auto;
       animation: spinRing 20s linear infinite;
-      position: relative;
-      box-shadow: 0 0 25px rgba(200,140,60,0.3);
+      box-shadow: 0 0 22px rgba(200,140,60,0.25);
     }
     .timer-inner {
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #6b4226;
       animation: spinInner 20s linear infinite reverse;
     }
     @keyframes spinRing { 100% { transform: rotate(360deg); } }
     @keyframes spinInner { 100% { transform: rotate(-360deg); } }
 
-    /* 飘带 */
     .ribbon-bottom {
       width: 100%;
       text-align: center;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #bb7a5a;
-      margin-top: 20px;
+      margin-top: 16px;
       animation: sway 4s ease-in-out infinite;
     }
     @keyframes sway {
       0%,100% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
+      50% { transform: translateX(8px); }
     }
 
-    /* 飘落元素 */
     .falling {
       position: fixed;
       pointer-events: none;
@@ -271,37 +240,31 @@
       0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.9; }
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
-
     .butterfly {
       position: fixed;
-      font-size: 2rem;
+      font-size: 1.8rem;
       z-index: 200;
-      transition: transform 0.2s;
     }
   </style>
 </head>
 <body>
 
-  <!-- 开屏纱幔 -->
-  <div class="veil left closed" id="veilL"></div>
-  <div class="veil mid-left closed" id="veilML"></div>
-  <div class="veil mid-right closed" id="veilMR"></div>
-  <div class="veil right closed" id="veilR"></div>
+  <div class="veil left" id="veilL"></div>
+  <div class="veil mid-left" id="veilML"></div>
+  <div class="veil mid-right" id="veilMR"></div>
+  <div class="veil right" id="veilR"></div>
   <div class="popup" id="popup">✍️ 给最爱的妈妈</div>
 
   <div class="container" id="mainContent">
     <h1 class="title" id="titleText">妈妈生日快乐</h1>
 
-    <!-- 文案卡片 -->
-    <div class="card" id="messageCard">
+    <div class="card">
       <div class="card-text" id="typewriter"></div>
       <button class="flower-btn" id="flowerBtn">🌸 绽放礼花</button>
     </div>
 
-    <!-- 照片区 -->
     <div class="photo-section" id="photoSection"></div>
 
-    <!-- 年轮计时 -->
     <div class="timer-ring">
       <div class="timer-inner" id="countdown">加载中...</div>
     </div>
@@ -315,15 +278,13 @@
 
   <script>
     (function() {
-      // 开屏动画
+      // 开屏
       setTimeout(() => {
         document.querySelectorAll('.veil').forEach(v => v.classList.add('open'));
         const popup = document.getElementById('popup');
         popup.classList.add('show');
-        setTimeout(() => {
-          popup.classList.add('hide');
-        }, 1800);
-      }, 400);
+        setTimeout(() => popup.classList.add('hide'), 1600);
+      }, 300);
 
       // 标题逐字
       const titleEl = document.getElementById('titleText');
@@ -333,13 +294,13 @@
         const span = document.createElement('span');
         span.textContent = char;
         span.style.opacity = '0';
-        span.style.transition = 'opacity 0.5s';
+        span.style.transition = 'opacity 0.4s';
         span.style.display = 'inline-block';
         titleEl.appendChild(span);
-        setTimeout(() => { span.style.opacity = '1'; }, 1800 + i * 200);
+        setTimeout(() => { span.style.opacity = '1'; }, 1500 + i * 180);
       });
 
-      // 彩蛋：标题三连击
+      // 三连击彩蛋
       let clickCount = 0;
       titleEl.addEventListener('click', () => {
         clickCount++;
@@ -351,59 +312,56 @@
         setTimeout(() => { clickCount = 0; }, 1500);
       });
 
-      // 打字机文案
-      const fullText = `时光的丝线轻绕指尖，织成第四十二圈温柔的年轮。
-你眉间藏着春风的絮语，眼底流转着岁月的星子，那些被柴米油盐浸润的日子，在你掌心开出了细碎的花。
-愿晨露为你斟一杯清欢，晚风替你拂去倦意，未来的路途有月光铺就台阶，每一步都踏着芬芳与明亮。
-妈妈，生日快乐——你不是被光阴追着走的人，而是光阴里永远鲜活的诗。`;
+      // 打字机
+      const fullText = `时光的丝线轻绕指尖，织成第四十二圈温柔的年轮。\n你眉间藏着春风的絮语，眼底流转着岁月的星子，那些被柴米油盐浸润的日子，在你掌心开出了细碎的花。\n愿晨露为你斟一杯清欢，晚风替你拂去倦意，未来的路途有月光铺就台阶，每一步都踏着芬芳与明亮。\n妈妈，生日快乐——你不是被光阴追着走的人，而是光阴里永远鲜活的诗。`;
       const typewriterEl = document.getElementById('typewriter');
       let charIndex = 0;
       function typeWriter() {
         if (charIndex < fullText.length) {
           typewriterEl.textContent += fullText.charAt(charIndex);
           charIndex++;
-          setTimeout(typeWriter, 60);
+          setTimeout(typeWriter, 55);
         }
       }
-      setTimeout(typeWriter, 2800);
+      setTimeout(typeWriter, 2400);
 
-      // 礼花按钮
       document.getElementById('flowerBtn').addEventListener('click', launchFireworks);
 
       function launchFireworks() {
-        for (let i=0; i<35; i++) {
+        for (let i=0; i<30; i++) {
           const el = document.createElement('div');
           el.className = 'falling';
           el.style.left = Math.random()*100+'%';
           el.style.top = Math.random()*40+'%';
           el.style.animationDuration = (Math.random()*2+1.5)+'s';
           el.innerHTML = ['🌸','✨','🎂','💐','🌟'][Math.floor(Math.random()*5)];
-          el.style.fontSize = (Math.random()*2+1.5)+'rem';
+          el.style.fontSize = (Math.random()*2+1.2)+'rem';
           document.body.appendChild(el);
           setTimeout(() => el.remove(), 2000);
         }
       }
 
-      // 照片生成 (17张)
+      // 照片——预加载优化
       const photoSection = document.getElementById('photoSection');
       const total = 17;
       const topRow = document.createElement('div'); topRow.className = 'row-top';
       const scrollRow = document.createElement('div'); scrollRow.className = 'scroll-row';
       const bottomRow = document.createElement('div'); bottomRow.className = 'row-bottom';
-      
+
       for (let i=0; i<total; i++) {
         const div = document.createElement('div'); div.className = 'photo-item';
-        const img = document.createElement('img'); 
-        img.src = `images/photo${i+1}.jpg`; 
-        img.alt = `照片${i+1}`; 
-        img.loading = 'lazy';
+        const img = document.createElement('img');
+        img.src = `images/photo${i+1}.jpg`;
+        img.alt = `照片${i+1}`;
+        img.loading = i < 6 ? 'eager' : 'lazy';
+        img.decoding = 'async';
         div.appendChild(img);
         div.addEventListener('click', () => {
-          div.style.transform = 'scale(1.8)';
+          div.style.transform = 'scale(1.7)';
           div.style.zIndex = '50';
-          setTimeout(() => { div.style.transform = ''; div.style.zIndex = ''; }, 600);
+          setTimeout(() => { div.style.transform = ''; div.style.zIndex = ''; }, 500);
         });
-        
+
         if (i < 6) topRow.appendChild(div);
         else if (i < 12) scrollRow.appendChild(div);
         else bottomRow.appendChild(div);
@@ -415,11 +373,11 @@
       // 倒计时
       function updateCountdown() {
         const now = new Date();
-        const next = new Date(now.getFullYear(), 5, 5); // 6月5日
+        const next = new Date(now.getFullYear(), 5, 5);
         if (now > next) next.setFullYear(next.getFullYear()+1);
         const diff = next - now;
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff % (86400000)) / 3600000);
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
         document.getElementById('countdown').innerHTML = `${days}天<br>${hours}:${minutes}:${seconds}`;
@@ -427,39 +385,35 @@
       setInterval(updateCountdown, 1000);
       updateCountdown();
 
-      // 飘落元素
-      function createFalling() {
-        const items = ['✨','🌸','💮','🏵️','🍀','🌟','安康','喜乐'];
-        setInterval(() => {
-          const el = document.createElement('div');
-          el.className = 'falling';
-          el.textContent = items[Math.floor(Math.random()*items.length)];
-          el.style.left = Math.random()*95+'%';
-          el.style.animationDuration = (Math.random()*8+6)+'s';
-          el.style.fontSize = (Math.random()*1.8+0.8)+'rem';
-          document.body.appendChild(el);
-          setTimeout(() => el.remove(), 10000);
-        }, 600);
-      }
-      createFalling();
+      // 飘落
+      const fallingItems = ['✨','🌸','💮','🏵️','🌟','安康','喜乐'];
+      setInterval(() => {
+        const el = document.createElement('div');
+        el.className = 'falling';
+        el.textContent = fallingItems[Math.floor(Math.random()*fallingItems.length)];
+        el.style.left = Math.random()*95+'%';
+        el.style.animationDuration = (Math.random()*8+6)+'s';
+        el.style.fontSize = (Math.random()*1.6+0.8)+'rem';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 10000);
+      }, 700);
 
-      // 蝴蝶彩蛋
+      // 蝴蝶
       setTimeout(() => {
         const butterfly = document.createElement('div');
         butterfly.className = 'butterfly';
         butterfly.textContent = '🦋';
-        butterfly.style.right = '10px';
-        butterfly.style.bottom = '20px';
+        butterfly.style.right = '8px';
+        butterfly.style.bottom = '18px';
         document.body.appendChild(butterfly);
         let pos = 0;
         const fly = setInterval(() => {
           pos += 2;
-          butterfly.style.right = (10 + Math.sin(pos*0.1)*30) + 'px';
-          butterfly.style.bottom = (20 + Math.cos(pos*0.08)*25) + 'px';
+          butterfly.style.right = (8 + Math.sin(pos*0.1)*25) + 'px';
+          butterfly.style.bottom = (18 + Math.cos(pos*0.08)*20) + 'px';
           if (pos > 60) { butterfly.remove(); clearInterval(fly); }
         }, 120);
       }, 30000);
-
     })();
   </script>
 </body>
