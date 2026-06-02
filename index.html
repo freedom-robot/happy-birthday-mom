@@ -19,7 +19,6 @@
       animation: bodyBreath 6s ease-in-out infinite;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      touch-action: pan-y;
     }
 
     @keyframes bodyBreath {
@@ -27,34 +26,55 @@
       50% { background: radial-gradient(circle at center, #fdf3ed 0%, #f7e2d6 40%, #f0ddd1 100%); }
     }
 
-    .container {
-      width: 100%;
-      max-width: 450px;
-      padding: 20px 14px 40px;
+    /* 横屏主容器 */
+    .landscape {
+      width: 100vw;
+      max-width: 900px;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 14px 10px 20px;
+      gap: 12px;
       z-index: 10;
       position: relative;
     }
 
+    /* 左侧信息区 */
+    .left-panel {
+      flex: 1 1 38%;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 右侧照片区 */
+    .right-panel {
+      flex: 1 1 58%;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     /* 开屏——横屏展开幕布 */
-    .curtain-top, .curtain-bottom {
+    .curtain-left, .curtain-right {
       position: fixed;
-      left: 0;
-      width: 100%;
-      height: 50vh;
+      top: 0;
+      width: 50vw;
+      height: 100%;
       background: #fce9e2;
       z-index: 999;
       transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
-    .curtain-top { top: 0; background: linear-gradient(to bottom, #f8d5c4, #fbe8df); }
-    .curtain-bottom { bottom: 0; background: linear-gradient(to top, #f8d5c4, #fbe8df); }
-    .curtain-top.open { transform: translateY(-100%); }
-    .curtain-bottom.open { transform: translateY(100%); }
+    .curtain-left { left: 0; background: linear-gradient(to right, #f8d5c4, #fbe8df); }
+    .curtain-right { right: 0; background: linear-gradient(to left, #f8d5c4, #fbe8df); }
+    .curtain-left.open { transform: translateX(-100%); }
+    .curtain-right.open { transform: translateX(100%); }
 
-    /* 弹窗 */
     .popup {
       position: fixed;
       top: 50%;
@@ -62,14 +82,14 @@
       transform: translate(-50%, -50%);
       background: #fdf5e6;
       background-image: radial-gradient(circle at 20% 30%, #f9e6c9 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-size: 30px 30px;
       border: 3px solid #c9a87c;
-      border-radius: 24px;
-      padding: 24px 18px;
+      border-radius: 22px;
+      padding: 18px 16px;
       box-shadow: 0 20px 40px rgba(120, 60, 30, 0.3);
       z-index: 1000;
       text-align: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       color: #5d3a2c;
       font-weight: bold;
       letter-spacing: 3px;
@@ -78,38 +98,35 @@
       pointer-events: none;
     }
     .popup.show { opacity: 1; }
-    .popup.hide { opacity: 0; transform: translate(-50%, -130%); }
+    .popup.hide { opacity: 0; transform: translate(-50%, -150%); }
 
-    /* 标题 */
     .title {
-      font-size: 2.6rem;
+      font-size: 2.2rem;
       font-weight: 700;
       background: linear-gradient(180deg, #d4a56a 0%, #b8863a 40%, #8b6914 70%, #c9a053 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(0 2px 4px rgba(180,120,40,0.4));
-      letter-spacing: 5px;
-      margin: 16px 0 8px;
+      letter-spacing: 4px;
       animation: titleGlow 2.5s ease-in-out infinite;
       text-align: center;
       word-break: keep-all;
     }
     @keyframes titleGlow {
       0%, 100% { filter: drop-shadow(0 2px 6px rgba(200,140,50,0.5)); }
-      50% { filter: drop-shadow(0 2px 18px rgba(220,160,60,0.9)); }
+      50% { filter: drop-shadow(0 2px 16px rgba(220,160,60,0.9)); }
     }
 
     .card {
       width: 100%;
       background: rgba(255, 245, 235, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 32px;
-      padding: 22px 16px;
-      margin: 16px 0;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 16px 14px;
       position: relative;
-      box-shadow: 0 15px 30px rgba(160, 100, 60, 0.15);
+      box-shadow: 0 12px 24px rgba(160, 100, 60, 0.15);
       overflow: hidden;
     }
     .card::before {
@@ -118,7 +135,7 @@
       top: -2px; left: -2px; right: -2px; bottom: -2px;
       background: linear-gradient(45deg, #dbb45c, #f3d59c, #c9a24c, #e8c878, #b58b3c);
       background-size: 400% 400%;
-      border-radius: 34px;
+      border-radius: 28px;
       z-index: -1;
       animation: borderGlow 4s linear infinite;
     }
@@ -128,83 +145,104 @@
       100% { background-position: 0% 50%; }
     }
     .card-text {
-      font-size: 1.05rem;
-      line-height: 1.9;
+      font-size: 0.9rem;
+      line-height: 1.8;
       color: #4d3022;
       text-align: left;
-      min-height: 260px;
+      min-height: 200px;
       font-weight: 500;
     }
     .flower-btn {
       background: #f3d9c6;
       border: none;
-      border-radius: 30px;
-      padding: 10px 22px;
-      margin-top: 14px;
-      font-size: 1.1rem;
+      border-radius: 26px;
+      padding: 8px 18px;
+      margin-top: 10px;
+      font-size: 1rem;
       cursor: pointer;
       color: #7b4a2c;
       box-shadow: 0 4px 10px rgba(150,80,20,0.2);
       transition: 0.3s;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-weight: bold;
     }
 
-    .photo-section { width: 100%; margin: 22px 0; }
-    .row-top, .row-bottom { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .row-top .photo-item:nth-child(odd) { transform: translateY(-6px); }
-    .row-top .photo-item:nth-child(even) { transform: translateY(6px); }
-    .photo-item {
-      width: 29%;
+    /* 中间大图 photo17 */
+    .hero-photo {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 4px 0;
+    }
+    .hero-photo .photo-item {
+      width: 65%;
       aspect-ratio: 3/4;
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 6px 14px rgba(100, 50, 30, 0.18);
-      transition: transform 0.3s;
-      animation: floatPhoto 4s ease-in-out infinite;
+      box-shadow: 0 10px 25px rgba(100, 50, 30, 0.3);
       background: #f0d9cc;
+    }
+    .hero-photo .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.1) brightness(1.05);
+      border-radius: 24px;
+      display: block;
+    }
+
+    /* 照片网格 */
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .photo-item {
+      width: 30%;
+      aspect-ratio: 3/4;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(100, 50, 30, 0.15);
+      background: #f0d9cc;
+      transition: transform 0.3s;
     }
     .photo-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: sepia(0.12) brightness(1.04);
-      border-radius: 20px;
+      filter: sepia(0.1) brightness(1.05);
+      border-radius: 16px;
       display: block;
     }
-    @keyframes floatPhoto {
+    .photo-item:nth-child(odd) { animation: floatUp 3.5s ease-in-out infinite; }
+    .photo-item:nth-child(even) { animation: floatDown 3.8s ease-in-out infinite; }
+    @keyframes floatUp {
       0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-4px); }
     }
-    .scroll-row {
-      display: flex;
-      overflow-x: auto;
-      gap: 12px;
-      padding: 10px 2px;
-      margin: 10px 0;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+    @keyframes floatDown {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
     }
-    .scroll-row .photo-item { flex: 0 0 42%; scroll-snap-align: start; }
-    .row-bottom .photo-item { width: 32%; }
 
     .timer-ring {
-      width: 140px;
-      height: 140px;
-      border: 4px solid #dbb45c;
+      width: 110px;
+      height: 110px;
+      border: 3px solid #dbb45c;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 20px auto;
+      margin: 8px auto;
       animation: spinRing 20s linear infinite;
-      box-shadow: 0 0 22px rgba(200,140,60,0.25);
+      box-shadow: 0 0 18px rgba(200,140,60,0.2);
     }
     .timer-inner {
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #6b4226;
       animation: spinInner 20s linear infinite reverse;
     }
@@ -214,14 +252,13 @@
     .ribbon-bottom {
       width: 100%;
       text-align: center;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: #bb7a5a;
-      margin-top: 16px;
       animation: sway 4s ease-in-out infinite;
     }
     @keyframes sway {
       0%,100% { transform: translateX(0); }
-      50% { transform: translateX(8px); }
+      50% { transform: translateX(6px); }
     }
 
     .falling {
@@ -236,32 +273,43 @@
     }
     .butterfly {
       position: fixed;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       z-index: 200;
     }
   </style>
 </head>
 <body>
 
-  <div class="curtain-top" id="curtainTop"></div>
-  <div class="curtain-bottom" id="curtainBottom"></div>
+  <div class="curtain-left" id="curtainL"></div>
+  <div class="curtain-right" id="curtainR"></div>
   <div class="popup" id="popup">✍️ 给最爱的妈妈</div>
 
-  <div class="container" id="mainContent">
-    <h1 class="title" id="titleText">妈妈生日快乐</h1>
+  <div class="landscape" id="mainContent">
 
-    <div class="card">
-      <div class="card-text" id="typewriter"></div>
-      <button class="flower-btn" id="flowerBtn">🌸 绽放礼花</button>
+    <!-- 左侧面板 -->
+    <div class="left-panel">
+      <h1 class="title" id="titleText">妈妈生日快乐</h1>
+
+      <div class="card">
+        <div class="card-text" id="typewriter"></div>
+        <button class="flower-btn" id="flowerBtn">🌸 绽放礼花</button>
+      </div>
+
+      <div class="timer-ring">
+        <div class="timer-inner" id="countdown">加载中...</div>
+      </div>
+
+      <div class="ribbon-bottom">🎀 幼时您护我长大<br>余生伴您岁岁安康 🎀</div>
     </div>
 
-    <div class="photo-section" id="photoSection"></div>
-
-    <div class="timer-ring">
-      <div class="timer-inner" id="countdown">加载中...</div>
+    <!-- 右侧面板 -->
+    <div class="right-panel">
+      <!-- photo17 中间大图 -->
+      <div class="hero-photo" id="heroPhoto"></div>
+      <!-- 其余16张网格 -->
+      <div class="photo-grid" id="photoGrid"></div>
     </div>
 
-    <div class="ribbon-bottom">🎀 幼时您护我长大，余生伴您岁岁安康 🎀</div>
   </div>
 
   <audio id="birthdayAudio" loop preload="auto">
@@ -270,13 +318,13 @@
 
   <script>
     (function() {
-      // 开屏——横屏幕布上下展开
+      // 开屏
       setTimeout(() => {
-        document.getElementById('curtainTop').classList.add('open');
-        document.getElementById('curtainBottom').classList.add('open');
+        document.getElementById('curtainL').classList.add('open');
+        document.getElementById('curtainR').classList.add('open');
         const popup = document.getElementById('popup');
         popup.classList.add('show');
-        setTimeout(() => popup.classList.add('hide'), 1600);
+        setTimeout(() => popup.classList.add('hide'), 1500);
       }, 300);
 
       // 标题逐字
@@ -290,10 +338,10 @@
         span.style.transition = 'opacity 0.4s';
         span.style.display = 'inline-block';
         titleEl.appendChild(span);
-        setTimeout(() => { span.style.opacity = '1'; }, 1500 + i * 180);
+        setTimeout(() => { span.style.opacity = '1'; }, 1400 + i * 160);
       });
 
-      // 三连击彩蛋
+      // 三连击
       let clickCount = 0;
       titleEl.addEventListener('click', () => {
         clickCount++;
@@ -313,55 +361,61 @@
         if (charIndex < fullText.length) {
           typewriterEl.textContent += fullText.charAt(charIndex);
           charIndex++;
-          setTimeout(typeWriter, 55);
+          setTimeout(typeWriter, 50);
         }
       }
-      setTimeout(typeWriter, 2400);
+      setTimeout(typeWriter, 2200);
 
       document.getElementById('flowerBtn').addEventListener('click', launchFireworks);
 
       function launchFireworks() {
-        for (let i=0; i<30; i++) {
+        for (let i=0; i<25; i++) {
           const el = document.createElement('div');
           el.className = 'falling';
           el.style.left = Math.random()*100+'%';
           el.style.top = Math.random()*40+'%';
-          el.style.animationDuration = (Math.random()*2+1.5)+'s';
+          el.style.animationDuration = (Math.random()*2+1.3)+'s';
           el.innerHTML = ['🌸','✨','🎂','💐','🌟'][Math.floor(Math.random()*5)];
-          el.style.fontSize = (Math.random()*2+1.2)+'rem';
+          el.style.fontSize = (Math.random()*1.8+1)+'rem';
           document.body.appendChild(el);
           setTimeout(() => el.remove(), 2000);
         }
       }
 
-      // 照片
-      const photoSection = document.getElementById('photoSection');
-      const total = 17;
-      const topRow = document.createElement('div'); topRow.className = 'row-top';
-      const scrollRow = document.createElement('div'); scrollRow.className = 'scroll-row';
-      const bottomRow = document.createElement('div'); bottomRow.className = 'row-bottom';
+      // photo17 大图
+      const heroDiv = document.getElementById('heroPhoto');
+      const heroItem = document.createElement('div');
+      heroItem.className = 'photo-item';
+      const heroImg = document.createElement('img');
+      heroImg.src = 'images/photo17.jpg';
+      heroImg.alt = '照片17';
+      heroImg.loading = 'eager';
+      heroItem.appendChild(heroImg);
+      heroItem.addEventListener('click', () => {
+        heroItem.style.transform = 'scale(1.5)';
+        heroItem.style.zIndex = '50';
+        setTimeout(() => { heroItem.style.transform = ''; heroItem.style.zIndex = ''; }, 500);
+      });
+      heroDiv.appendChild(heroItem);
 
-      for (let i=0; i<total; i++) {
-        const div = document.createElement('div'); div.className = 'photo-item';
+      // 其余16张
+      const grid = document.getElementById('photoGrid');
+      for (let i=0; i<16; i++) {
+        const div = document.createElement('div');
+        div.className = 'photo-item';
         const img = document.createElement('img');
         img.src = `images/photo${i+1}.jpg`;
         img.alt = `照片${i+1}`;
-        img.loading = i < 6 ? 'eager' : 'lazy';
+        img.loading = 'lazy';
         img.decoding = 'async';
         div.appendChild(img);
         div.addEventListener('click', () => {
-          div.style.transform = 'scale(1.7)';
+          div.style.transform = 'scale(1.5)';
           div.style.zIndex = '50';
           setTimeout(() => { div.style.transform = ''; div.style.zIndex = ''; }, 500);
         });
-
-        if (i < 6) topRow.appendChild(div);
-        else if (i < 12) scrollRow.appendChild(div);
-        else bottomRow.appendChild(div);
+        grid.appendChild(div);
       }
-      photoSection.appendChild(topRow);
-      photoSection.appendChild(scrollRow);
-      photoSection.appendChild(bottomRow);
 
       // 倒计时
       function updateCountdown() {
@@ -379,14 +433,14 @@
       updateCountdown();
 
       // 飘落
-      const fallingItems = ['✨','🌸','💮','🏵️','🌟','安康','喜乐'];
+      const items = ['✨','🌸','💮','🏵️','🌟','安康','喜乐'];
       setInterval(() => {
         const el = document.createElement('div');
         el.className = 'falling';
-        el.textContent = fallingItems[Math.floor(Math.random()*fallingItems.length)];
+        el.textContent = items[Math.floor(Math.random()*items.length)];
         el.style.left = Math.random()*95+'%';
         el.style.animationDuration = (Math.random()*8+6)+'s';
-        el.style.fontSize = (Math.random()*1.6+0.8)+'rem';
+        el.style.fontSize = (Math.random()*1.5+0.7)+'rem';
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 10000);
       }, 700);
@@ -396,14 +450,14 @@
         const butterfly = document.createElement('div');
         butterfly.className = 'butterfly';
         butterfly.textContent = '🦋';
-        butterfly.style.right = '8px';
-        butterfly.style.bottom = '18px';
+        butterfly.style.right = '6px';
+        butterfly.style.bottom = '14px';
         document.body.appendChild(butterfly);
         let pos = 0;
         const fly = setInterval(() => {
           pos += 2;
-          butterfly.style.right = (8 + Math.sin(pos*0.1)*25) + 'px';
-          butterfly.style.bottom = (18 + Math.cos(pos*0.08)*20) + 'px';
+          butterfly.style.right = (6 + Math.sin(pos*0.1)*20) + 'px';
+          butterfly.style.bottom = (14 + Math.cos(pos*0.08)*18) + 'px';
           if (pos > 60) { butterfly.remove(); clearInterval(fly); }
         }, 120);
       }, 30000);
