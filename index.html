@@ -1,192 +1,466 @@
-cat > index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes, viewport-fit=cover">
-  <title>冯泽英女士 · 42岁生日快乐</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=yes">
+  <title>冯泽英 · 42岁生日快乐</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: linear-gradient(160deg, #fce4ec 0%, #f8d5da 100%);
-      font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+      background: #fdf8f4;
+      background: radial-gradient(circle at center, #f9e9e0 0%, #f5ddd0 40%, #eed9ce 100%);
+      font-family: "Noto Serif SC", "华文楷体", "KaiTi", "STKaiti", "楷体", "PingFang SC", "Microsoft YaHei", serif;
       min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      position: relative;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 1.5rem 1rem;
+      align-items: flex-start;
+      animation: bodyBreath 6s ease-in-out infinite;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      touch-action: pan-y; 
+    }
+
+    @keyframes bodyBreath {
+      0%, 100% { background: radial-gradient(circle at center, #f9e9e0 0%, #f5ddd0 40%, #eed9ce 100%); }
+      50% { background: radial-gradient(circle at center, #fdf3ed 0%, #f7e2d6 40%, #f0ddd1 100%); }
+    }
+
+    /* 主容器 */
+    .container {
+      width: 100%;
+      max-width: 450px;
       position: relative;
-      overflow-x: hidden;
-      margin: 0;
+      padding: 20px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
     }
-    .petal {
-      position: fixed; top: -10%; color: #d43f5c; font-size: 1.8rem;
-      opacity: 0.65; pointer-events: none; animation: fall linear infinite; z-index: 0;
+
+    /* 开屏纱幔 */
+    .veil {
+      position: fixed;
+      top: 0;
+      width: 25%;
+      height: 100%;
+      background: #fce9e2;
+      z-index: 999;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
     }
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+    .veil.left { left: 0; background: linear-gradient(to right, #f8d5c4, #fbe8df); }
+    .veil.right { right: 0; background: linear-gradient(to left, #f8d5c4, #fbe8df); }
+    .veil.mid-left { left: 25%; background: #fae3d7; }
+    .veil.mid-right { right: 25%; background: #fae3d7; }
+    .veil.closed { transform: translateX(0); }
+    .veil.left.open { transform: translateX(-100%); }
+    .veil.right.open { transform: translateX(100%); }
+    .veil.mid-left.open { transform: translateX(-100%); }
+    .veil.mid-right.open { transform: translateX(100%); }
+
+    /* 牛皮纸弹窗 */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fdf5e6;
+      background-image: radial-gradient(circle at 20% 30%, #f9e6c9 1px, transparent 1px);
+      background-size: 40px 40px;
+      border: 3px solid #c9a87c;
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 20px 40px rgba(120, 60, 30, 0.3);
+      z-index: 1000;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #5d3a2c;
+      font-weight: bold;
+      letter-spacing: 3px;
+      opacity: 0;
+      transition: opacity 0.6s, transform 0.8s;
+      pointer-events: none;
+    }
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    .popup.hide {
+      opacity: 0;
+      transform: translate(-50%, -120%);
+    }
+
+    /* 标题 */
+    .title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(180deg, #d4a56a 0%, #b8863a 40%, #8b6914 70%, #c9a053 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px rgba(180,120,40,0.4));
+      letter-spacing: 6px;
+      margin: 20px 0 10px;
+      animation: titleGlow 2.5s ease-in-out infinite;
+      text-align: center;
+      word-break: keep-all;
+    }
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 2px 6px rgba(200,140,50,0.5)); }
+      50% { filter: drop-shadow(0 2px 18px rgba(220,160,60,0.9)); }
+    }
+
+    /* 卡片 */
+    .card {
+      width: 100%;
+      background: rgba(255, 245, 235, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 36px;
+      padding: 24px 18px;
+      margin: 18px 0;
+      border: 2px solid transparent;
+      position: relative;
+      box-shadow: 0 15px 30px rgba(160, 100, 60, 0.15);
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, #dbb45c, #f3d59c, #c9a24c, #e8c878, #b58b3c);
+      background-size: 400% 400%;
+      border-radius: 38px;
+      z-index: -1;
+      animation: borderGlow 4s linear infinite;
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .card-text {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: #4d3022;
+      text-align: left;
+      min-height: 280px;
+      font-weight: 500;
+    }
+    .flower-btn {
+      background: #f3d9c6;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 24px;
+      margin-top: 18px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #7b4a2c;
+      box-shadow: 0 4px 10px rgba(150,80,20,0.2);
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: bold;
+    }
+    .flower-btn:active { transform: scale(0.95); background: #ecc9b0; }
+
+    /* 照片区 */
+    .photo-section {
+      width: 100%;
+      margin: 25px 0;
+    }
+    .row-top, .row-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .row-top .photo-item:nth-child(odd) { transform: translateY(-8px); }
+    .row-top .photo-item:nth-child(even) { transform: translateY(8px); }
+    .photo-item {
+      width: 28%;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(100, 50, 30, 0.2);
+      transition: transform 0.3s;
+      animation: floatPhoto 4s ease-in-out infinite;
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.15) brightness(1.05);
+      border-radius: 24px;
+    }
+    @keyframes floatPhoto {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .scroll-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 14px;
+      padding: 12px 4px;
+      margin: 12px 0;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scroll-row .photo-item {
+      flex: 0 0 40%;
+      scroll-snap-align: start;
+    }
+    .row-bottom .photo-item {
+      width: 30%;
+    }
+
+    /* 年轮 */
+    .timer-ring {
+      width: 150px;
+      height: 150px;
+      border: 4px solid #dbb45c;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 24px auto;
+      animation: spinRing 20s linear infinite;
+      position: relative;
+      box-shadow: 0 0 25px rgba(200,140,60,0.3);
+    }
+    .timer-inner {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b4226;
+      animation: spinInner 20s linear infinite reverse;
+    }
+    @keyframes spinRing { 100% { transform: rotate(360deg); } }
+    @keyframes spinInner { 100% { transform: rotate(-360deg); } }
+
+    /* 飘带 */
+    .ribbon-bottom {
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: #bb7a5a;
+      margin-top: 20px;
+      animation: sway 4s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+
+    /* 飘落元素 */
+    .falling {
+      position: fixed;
+      pointer-events: none;
+      z-index: 100;
+      animation: fallDown linear infinite;
+    }
+    @keyframes fallDown {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.9; }
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
-    .album-card {
-      max-width: 750px; width: 100%; background: #fffbfc; border-radius: 56px;
-      box-shadow: 0 35px 55px rgba(170,50,70,0.25); padding: 2.2rem 1.8rem 2.5rem;
-      text-align: center; position: relative; z-index: 10; border: 1px solid rgba(255,215,220,0.9);
-    }
-    .hero i { font-size: 2.5rem; color: #c94b64; margin: 0 0.3rem; }
-    h1 {
-      font-size: clamp(2.8rem, 10vw, 3.8rem); font-weight: 650; color: #ac3246;
-      letter-spacing: 6px; text-shadow: 2px 2px 0 #ffe0e0; margin: 0.2rem 0;
-    }
-    .subtitle {
-      font-size: 1.4rem; color: #b85468; display: flex; align-items: center;
-      justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem;
-    }
-    .age-badge {
-      background: #e05570; color: white; border-radius: 50px; padding: 0.4rem 2rem;
-      font-weight: bold; font-size: 2rem; display: inline-block; margin: 0.6rem 0 0.8rem;
-      letter-spacing: 3px; box-shadow: 0 10px 18px rgba(200,60,80,0.45);
-    }
-    .main-photo-wrapper {
-      background: #ffe7ec; border-radius: 48px; padding: 10px; margin: 0.5rem 0 1.5rem;
-      display: inline-block; box-shadow: 0 18px 30px rgba(160,55,75,0.3);
-    }
-    #mainPhoto {
-      width: 100%; max-width: 280px; aspect-ratio: 1/1; border-radius: 38px;
-      object-fit: cover; background: #fccdd5; border: 4px solid white; display: block; cursor: pointer;
-    }
-    .album-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.6rem 0 1.8rem;
-    }
-    .thumbnail {
-      width: 70px; height: 70px; border-radius: 20px; object-fit: cover; background: #fdd6dd;
-      border: 3px solid white; box-shadow: 0 5px 12px rgba(140,35,50,0.25); cursor: pointer; transition: all 0.25s;
-    }
-    .thumbnail:hover { transform: translateY(-6px) scale(1.05); border-color: #e85773; }
-    .thumbnail.active { border-color: #db3453; transform: scale(1.08); }
-    .message {
-      background: rgba(255,240,243,0.8); border-radius: 35px; padding: 1.6rem 1.2rem;
-      margin: 1.5rem 0; font-size: 1.25rem; line-height: 1.8; color: #4a2f35; border: 1px dashed #d67d8e;
-    }
-    .highlight-text { font-weight: 700; font-size: 1.6rem; color: #b13d4f; display: block; margin-bottom: 0.3rem; }
-    .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1.4rem 0; }
-    .btn {
-      background: white; border: 1px solid #f5c2cc; padding: 0.8rem 1.8rem; border-radius: 40px;
-      font-size: 1rem; font-weight: 600; color: #b13c51; cursor: pointer; transition: 0.25s;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-    }
-    .btn:hover { background: #e44d67; color: white; transform: translateY(-3px); }
-    .footer-note { margin-top: 1.8rem; color: #b36675; font-size: 1rem; }
-    @media (max-width: 500px) {
-      .album-card { padding: 1.8rem 1rem; }
-      .thumbnail { width: 58px; height: 58px; border-radius: 16px; }
-      #mainPhoto { max-width: 220px; }
+
+    .butterfly {
+      position: fixed;
+      font-size: 2rem;
+      z-index: 200;
+      transition: transform 0.2s;
     }
   </style>
 </head>
 <body>
-  <div class="album-card">
-    <div class="hero">
-      <i class="fas fa-heart" style="color:#d43f5c;"></i>
-      <i class="fas fa-cake-candles"></i>
-      <i class="fas fa-heart" style="color:#d43f5c;"></i>
+
+  <!-- 开屏纱幔 -->
+  <div class="veil left closed" id="veilL"></div>
+  <div class="veil mid-left closed" id="veilML"></div>
+  <div class="veil mid-right closed" id="veilMR"></div>
+  <div class="veil right closed" id="veilR"></div>
+  <div class="popup" id="popup">✍️ 给最爱的妈妈</div>
+
+  <div class="container" id="mainContent">
+    <h1 class="title" id="titleText">妈妈生日快乐</h1>
+
+    <!-- 文案卡片 -->
+    <div class="card" id="messageCard">
+      <div class="card-text" id="typewriter"></div>
+      <button class="flower-btn" id="flowerBtn">🌸 绽放礼花</button>
     </div>
-    <h1>冯泽英</h1>
-    <div class="subtitle">
-      <span>🌸 女士</span>
-      <i class="fas fa-star" style="color:#f5b042;"></i>
-      <span>生日快乐 🌸</span>
+
+    <!-- 照片区 -->
+    <div class="photo-section" id="photoSection"></div>
+
+    <!-- 年轮计时 -->
+    <div class="timer-ring">
+      <div class="timer-inner" id="countdown">加载中...</div>
     </div>
-    <div class="age-badge">42岁</div>
-    <div class="main-photo-wrapper">
-      <img id="mainPhoto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23fbc2cb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22' fill='%23a3374a'%3E🌸 妈妈 🌸%3C/text%3E%3C/svg%3E" alt="冯泽英照片">
-    </div>
-    <div class="album-grid" id="thumbnailGrid"></div>
-    <div class="message">
-      <span class="highlight-text"><i class="fas fa-quote-left"></i> 致最爱的妈妈 <i class="fas fa-quote-right"></i></span>
-      42年璀璨时光，6月5日因您而特别。<br>
-      愿冯泽英女士永远健康、美丽、幸福！<br>
-      <span style="display:inline-block;margin-top:0.5rem;">✨ 我们永远爱您 ✨</span>
-    </div>
-    <div class="btn-group">
-      <button class="btn" id="playMusicBtn"><i class="fas fa-music"></i> 播放生日歌</button>
-      <button class="btn" id="surpriseBtn"><i class="fas fa-gift"></i> 生日惊喜</button>
-    </div>
-    <div class="footer-note">
-      <i class="far fa-calendar-alt"></i> 2026年6月5日 · 农历四月二十 <i class="fas fa-heart" style="color:#d43f5c;"></i>
-    </div>
+
+    <div class="ribbon-bottom">🎀 幼时您护我长大，余生伴您岁岁安康 🎀</div>
   </div>
-  <audio id="birthdayAudio" preload="auto" loop>
-    <source src="https://cdn.jsdelivr.net/gh/liyongleihf/filedata@main/happy-birthday.mp3" type="audio/mpeg">
+
+  <audio id="birthdayAudio" loop preload="auto">
+    <source src="https://www.soundjay.com/human/sounds/happy-birthday-1.mp3" type="audio/mpeg">
   </audio>
+
   <script>
     (function() {
-      const TOTAL_PHOTOS = 17;                                                       function getPhotoUrl(index) {
-    return 'images/' + (index + 1) + '.jpg';
-}
-            const mainPhoto=document.getElementById('mainPhoto');
-      const grid=document.getElementById('thumbnailGrid');
-      const playBtn=document.getElementById('playMusicBtn');
-      const surpriseBtn=document.getElementById('surpriseBtn');
-      const audio=document.getElementById('birthdayAudio');
-      let photos=[], cur=0;
-      function setMain(i){
-        i=Math.min(Math.max(i,0),photos.length-1);
-        mainPhoto.src=photos[i]; cur=i;
-        document.querySelectorAll('.thumbnail').forEach((t,j)=>t.classList.toggle('active',j===i));
-      }
-      for(let i=0;i<TOTAL_PHOTOS;i++){
-        const u=getPhotoUrl(i); photos.push(u);
-        const img=document.createElement('img');
-        img.src=u; img.alt='照片'+(i+1); img.className='thumbnail'; img.loading='lazy';
-        img.onclick=()=>setMain(i);
-        grid.appendChild(img);
-      }
-      if(photos.length) setMain(0);
-      for(let i=0;i<38;i++){
-        const p=document.createElement('i');
-        p.className='fas fa-heart petal';
-        p.style.left=Math.random()*100+'%';
-        p.style.fontSize=(Math.random()*2.2+1.2)+'rem';
-        p.style.animationDuration=(Math.random()*9+7)+'s';
-        p.style.animationDelay=Math.random()*7+'s';
-        p.style.color=Math.random()>0.5?'#dc4c64':'#f5909f';
-        document.body.appendChild(p);
-      }
-      let playing=false;
-      function toggle(){
-        if(!audio)return;
-        if(playing){ audio.pause(); }
-        else{ audio.play().catch(()=>alert('请点击按钮播放生日歌 🎵')); }
-      }
-      function updateBtn(){
-        if(!audio)return;
-        playing=!audio.paused;
-        playBtn.innerHTML=playing?'<i class="fas fa-pause"></i> 暂停音乐':'<i class="fas fa-music"></i> 播放生日歌';
-      }
-      playBtn.onclick=toggle;
-      audio.addEventListener('play',updateBtn);
-      audio.addEventListener('pause',updateBtn);
-      audio.addEventListener('ended',updateBtn);
-      audio.volume=0.6;
-      surpriseBtn.onclick=()=>{
-        const m=document.createElement('div');
-        m.innerText='🎂 冯泽英女士，42岁生日快乐！ 🎂';
-        Object.assign(m.style,{position:'fixed',top:'25%',left:'50%',transform:'translate(-50%,-50%)',background:'rgba(255,245,247,0.96)',color:'#b33248',padding:'1.5rem 2.5rem',borderRadius:'60px',fontSize:'clamp(1.2rem,5vw,2rem)',fontWeight:'bold',boxShadow:'0 28px 45px rgba(190,50,70,0.6)',zIndex:'999',border:'3px solid #e0607a'});
-        document.body.appendChild(m);
-        for(let i=0;i<25;i++){
-          const h=document.createElement('i');
-          h.className='fas fa-heart';
-          Object.assign(h.style,{position:'fixed',color:'#e34a62',fontSize:(Math.random()*2.8+1.4)+'rem',left:Math.random()*95+'%',top:Math.random()*90+'%',zIndex:'998',opacity:'0.9',animation:'fall 1.8s ease-out forwards'});
-          document.body.appendChild(h);
-          setTimeout(()=>h.remove(),1800);
+      // 开屏动画
+      setTimeout(() => {
+        document.querySelectorAll('.veil').forEach(v => v.classList.add('open'));
+        const popup = document.getElementById('popup');
+        popup.classList.add('show');
+        setTimeout(() => {
+          popup.classList.add('hide');
+        }, 1800);
+      }, 400);
+
+      // 标题逐字
+      const titleEl = document.getElementById('titleText');
+      const titleText = '妈妈生日快乐';
+      titleEl.innerHTML = '';
+      [...titleText].forEach((char, i) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.opacity = '0';
+        span.style.transition = 'opacity 0.5s';
+        span.style.display = 'inline-block';
+        titleEl.appendChild(span);
+        setTimeout(() => { span.style.opacity = '1'; }, 1800 + i * 200);
+      });
+
+      // 彩蛋：标题三连击
+      let clickCount = 0;
+      titleEl.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount >= 3) {
+          launchFireworks();
+          document.getElementById('birthdayAudio').play().catch(()=>{});
+          clickCount = 0;
         }
-        setTimeout(()=>m.remove(),3000);
-        if(!playing&&audio) audio.play().catch(()=>{});
-      };
-      mainPhoto.onclick=()=>{ if(photos.length) setMain((cur+1)%photos.length); };
+        setTimeout(() => { clickCount = 0; }, 1500);
+      });
+
+      // 打字机文案
+      const fullText = `时光的丝线轻绕指尖，织成第四十二圈温柔的年轮。
+你眉间藏着春风的絮语，眼底流转着岁月的星子，那些被柴米油盐浸润的日子，在你掌心开出了细碎的花。
+愿晨露为你斟一杯清欢，晚风替你拂去倦意，未来的路途有月光铺就台阶，每一步都踏着芬芳与明亮。
+妈妈，生日快乐——你不是被光阴追着走的人，而是光阴里永远鲜活的诗。`;
+      const typewriterEl = document.getElementById('typewriter');
+      let charIndex = 0;
+      function typeWriter() {
+        if (charIndex < fullText.length) {
+          typewriterEl.textContent += fullText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeWriter, 60);
+        }
+      }
+      setTimeout(typeWriter, 2800);
+
+      // 礼花按钮
+      document.getElementById('flowerBtn').addEventListener('click', launchFireworks);
+
+      function launchFireworks() {
+        for (let i=0; i<35; i++) {
+          const el = document.createElement('div');
+          el.className = 'falling';
+          el.style.left = Math.random()*100+'%';
+          el.style.top = Math.random()*40+'%';
+          el.style.animationDuration = (Math.random()*2+1.5)+'s';
+          el.innerHTML = ['🌸','✨','🎂','💐','🌟'][Math.floor(Math.random()*5)];
+          el.style.fontSize = (Math.random()*2+1.5)+'rem';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 2000);
+        }
+      }
+
+      // 照片生成 (17张)
+      const photoSection = document.getElementById('photoSection');
+      const total = 17;
+      const topRow = document.createElement('div'); topRow.className = 'row-top';
+      const scrollRow = document.createElement('div'); scrollRow.className = 'scroll-row';
+      const bottomRow = document.createElement('div'); bottomRow.className = 'row-bottom';
+      
+      for (let i=0; i<total; i++) {
+        const div = document.createElement('div'); div.className = 'photo-item';
+        const img = document.createElement('img'); 
+        img.src = `images/${i+1}.jpg`; 
+        img.alt = `照片${i+1}`; 
+        img.loading = 'lazy';
+        div.appendChild(img);
+        div.addEventListener('click', () => {
+          div.style.transform = 'scale(1.8)';
+          div.style.zIndex = '50';
+          setTimeout(() => { div.style.transform = ''; div.style.zIndex = ''; }, 600);
+        });
+        
+        if (i < 6) topRow.appendChild(div);
+        else if (i < 12) scrollRow.appendChild(div);
+        else bottomRow.appendChild(div);
+      }
+      photoSection.appendChild(topRow);
+      photoSection.appendChild(scrollRow);
+      photoSection.appendChild(bottomRow);
+
+      // 倒计时
+      function updateCountdown() {
+        const now = new Date();
+        const next = new Date(now.getFullYear(), 5, 5); // 6月5日
+        if (now > next) next.setFullYear(next.getFullYear()+1);
+        const diff = next - now;
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff % (86400000)) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        document.getElementById('countdown').innerHTML = `${days}天<br>${hours}:${minutes}:${seconds}`;
+      }
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // 飘落元素
+      function createFalling() {
+        const items = ['✨','🌸','💮','🏵️','🍀','🌟','安康','喜乐'];
+        setInterval(() => {
+          const el = document.createElement('div');
+          el.className = 'falling';
+          el.textContent = items[Math.floor(Math.random()*items.length)];
+          el.style.left = Math.random()*95+'%';
+          el.style.animationDuration = (Math.random()*8+6)+'s';
+          el.style.fontSize = (Math.random()*1.8+0.8)+'rem';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 10000);
+        }, 600);
+      }
+      createFalling();
+
+      // 蝴蝶彩蛋
+      setTimeout(() => {
+        const butterfly = document.createElement('div');
+        butterfly.className = 'butterfly';
+        butterfly.textContent = '🦋';
+        butterfly.style.right = '10px';
+        butterfly.style.bottom = '20px';
+        document.body.appendChild(butterfly);
+        let pos = 0;
+        const fly = setInterval(() => {
+          pos += 2;
+          butterfly.style.right = (10 + Math.sin(pos*0.1)*30) + 'px';
+          butterfly.style.bottom = (20 + Math.cos(pos*0.08)*25) + 'px';
+          if (pos > 60) { butterfly.remove(); clearInterval(fly); }
+        }, 120);
+      }, 30000);
+
     })();
   </script>
 </body>
 </html>
-HTMLEOF
