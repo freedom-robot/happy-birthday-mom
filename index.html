@@ -1,0 +1,195 @@
+cat > index.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes, viewport-fit=cover">
+  <title>冯泽英 · 42岁生日快乐</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(160deg, #fce4ec 0%, #f8d5da 100%);
+      font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+      margin: 0;
+    }
+    .petal {
+      position: fixed; top: -10%; color: #d43f5c; font-size: 1.8rem;
+      opacity: 0.65; pointer-events: none; animation: fall linear infinite; z-index: 0;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+    .album-card {
+      max-width: 750px; width: 100%; background: #fffbfc; border-radius: 56px;
+      box-shadow: 0 35px 55px rgba(170,50,70,0.25); padding: 2.2rem 1.8rem 2.5rem;
+      text-align: center; position: relative; z-index: 10; border: 1px solid rgba(255,215,220,0.9);
+    }
+    .hero i { font-size: 2.5rem; color: #c94b64; margin: 0 0.3rem; }
+    h1 {
+      font-size: clamp(2.8rem, 10vw, 3.8rem); font-weight: 650; color: #ac3246;
+      letter-spacing: 6px; text-shadow: 2px 2px 0 #ffe0e0; margin: 0.2rem 0;
+    }
+    .subtitle {
+      font-size: 1.4rem; color: #b85468; display: flex; align-items: center;
+      justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem;
+    }
+    .age-badge {
+      background: #e05570; color: white; border-radius: 50px; padding: 0.4rem 2rem;
+      font-weight: bold; font-size: 2rem; display: inline-block; margin: 0.6rem 0 0.8rem;
+      letter-spacing: 3px; box-shadow: 0 10px 18px rgba(200,60,80,0.45);
+    }
+    .main-photo-wrapper {
+      background: #ffe7ec; border-radius: 48px; padding: 10px; margin: 0.5rem 0 1.5rem;
+      display: inline-block; box-shadow: 0 18px 30px rgba(160,55,75,0.3);
+    }
+    #mainPhoto {
+      width: 100%; max-width: 280px; aspect-ratio: 1/1; border-radius: 38px;
+      object-fit: cover; background: #fccdd5; border: 4px solid white; display: block; cursor: pointer;
+    }
+    .album-grid {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.6rem 0 1.8rem;
+    }
+    .thumbnail {
+      width: 70px; height: 70px; border-radius: 20px; object-fit: cover; background: #fdd6dd;
+      border: 3px solid white; box-shadow: 0 5px 12px rgba(140,35,50,0.25); cursor: pointer; transition: all 0.25s;
+    }
+    .thumbnail:hover { transform: translateY(-6px) scale(1.05); border-color: #e85773; }
+    .thumbnail.active { border-color: #db3453; transform: scale(1.08); }
+    .message {
+      background: rgba(255,240,243,0.8); border-radius: 35px; padding: 1.6rem 1.2rem;
+      margin: 1.5rem 0; font-size: 1.25rem; line-height: 1.8; color: #4a2f35; border: 1px dashed #d67d8e;
+    }
+    .highlight-text { font-weight: 700; font-size: 1.6rem; color: #b13d4f; display: block; margin-bottom: 0.3rem; }
+    .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1.4rem 0; }
+    .btn {
+      background: white; border: 1px solid #f5c2cc; padding: 0.8rem 1.8rem; border-radius: 40px;
+      font-size: 1rem; font-weight: 600; color: #b13c51; cursor: pointer; transition: 0.25s;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn:hover { background: #e44d67; color: white; transform: translateY(-3px); }
+    .footer-note { margin-top: 1.8rem; color: #b36675; font-size: 1rem; }
+    @media (max-width: 500px) {
+      .album-card { padding: 1.8rem 1rem; }
+      .thumbnail { width: 58px; height: 58px; border-radius: 16px; }
+      #mainPhoto { max-width: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="album-card">
+    <div class="hero">
+      <i class="fas fa-heart" style="color:#d43f5c;"></i>
+      <i class="fas fa-cake-candles"></i>
+      <i class="fas fa-heart" style="color:#d43f5c;"></i>
+    </div>
+    <h1>冯泽英</h1>
+    <div class="subtitle">
+      <span>🌸 女士</span>
+      <i class="fas fa-star" style="color:#f5b042;"></i>
+      <span>生日快乐 🌸</span>
+    </div>
+    <div class="age-badge">42岁</div>
+    <div class="main-photo-wrapper">
+      <img id="mainPhoto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23fbc2cb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22' fill='%23a3374a'%3E🌸 妈妈 🌸%3C/text%3E%3C/svg%3E" alt="冯泽英照片">
+    </div>
+    <div class="album-grid" id="thumbnailGrid"></div>
+    <div class="message">
+      <span class="highlight-text"><i class="fas fa-quote-left"></i> 致最爱的妈妈 <i class="fas fa-quote-right"></i></span>
+      42年璀璨时光，6月5日因您而特别。<br>
+      愿冯泽英女士永远健康、美丽、幸福！<br>
+      <span style="display:inline-block;margin-top:0.5rem;">✨ 我们永远爱您 ✨</span>
+    </div>
+    <div class="btn-group">
+      <button class="btn" id="playMusicBtn"><i class="fas fa-music"></i> 播放生日歌</button>
+      <button class="btn" id="surpriseBtn"><i class="fas fa-gift"></i> 生日惊喜</button>
+    </div>
+    <div class="footer-note">
+      <i class="far fa-calendar-alt"></i> 2026年6月5日 · 农历四月二十 <i class="fas fa-heart" style="color:#d43f5c;"></i>
+    </div>
+  </div>
+  <audio id="birthdayAudio" preload="auto" loop>
+    <source src="https://cdn.jsdelivr.net/gh/liyongleihf/filedata@main/happy-birthday.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    (function() {
+      const TOTAL_PHOTOS = 12;
+      function getPhotoUrl(index) {
+        const colors = ['f9c6d4','fcd5ce','f8edeb','ffe5d9','fde2e4','fae1dd','f7d1cd','ffd7e0','fbe0e4','f9d2d9','f5c7d0','fce4ec'];
+        const c = colors[index%12];
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23"+c+"'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%239e3546'%3E妈妈 "+(index+1)+"%3C/text%3E%3C/svg%3E";
+      }
+      const mainPhoto=document.getElementById('mainPhoto');
+      const grid=document.getElementById('thumbnailGrid');
+      const playBtn=document.getElementById('playMusicBtn');
+      const surpriseBtn=document.getElementById('surpriseBtn');
+      const audio=document.getElementById('birthdayAudio');
+      let photos=[], cur=0;
+      function setMain(i){
+        i=Math.min(Math.max(i,0),photos.length-1);
+        mainPhoto.src=photos[i]; cur=i;
+        document.querySelectorAll('.thumbnail').forEach((t,j)=>t.classList.toggle('active',j===i));
+      }
+      for(let i=0;i<TOTAL_PHOTOS;i++){
+        const u=getPhotoUrl(i); photos.push(u);
+        const img=document.createElement('img');
+        img.src=u; img.alt='照片'+(i+1); img.className='thumbnail'; img.loading='lazy';
+        img.onclick=()=>setMain(i);
+        grid.appendChild(img);
+      }
+      if(photos.length) setMain(0);
+      for(let i=0;i<38;i++){
+        const p=document.createElement('i');
+        p.className='fas fa-heart petal';
+        p.style.left=Math.random()*100+'%';
+        p.style.fontSize=(Math.random()*2.2+1.2)+'rem';
+        p.style.animationDuration=(Math.random()*9+7)+'s';
+        p.style.animationDelay=Math.random()*7+'s';
+        p.style.color=Math.random()>0.5?'#dc4c64':'#f5909f';
+        document.body.appendChild(p);
+      }
+      let playing=false;
+      function toggle(){
+        if(!audio)return;
+        if(playing){ audio.pause(); }
+        else{ audio.play().catch(()=>alert('请点击按钮播放生日歌 🎵')); }
+      }
+      function updateBtn(){
+        if(!audio)return;
+        playing=!audio.paused;
+        playBtn.innerHTML=playing?'<i class="fas fa-pause"></i> 暂停音乐':'<i class="fas fa-music"></i> 播放生日歌';
+      }
+      playBtn.onclick=toggle;
+      audio.addEventListener('play',updateBtn);
+      audio.addEventListener('pause',updateBtn);
+      audio.addEventListener('ended',updateBtn);
+      audio.volume=0.6;
+      surpriseBtn.onclick=()=>{
+        const m=document.createElement('div');
+        m.innerText='🎂 冯泽英女士，42岁生日快乐！ 🎂';
+        Object.assign(m.style,{position:'fixed',top:'25%',left:'50%',transform:'translate(-50%,-50%)',background:'rgba(255,245,247,0.96)',color:'#b33248',padding:'1.5rem 2.5rem',borderRadius:'60px',fontSize:'clamp(1.2rem,5vw,2rem)',fontWeight:'bold',boxShadow:'0 28px 45px rgba(190,50,70,0.6)',zIndex:'999',border:'3px solid #e0607a'});
+        document.body.appendChild(m);
+        for(let i=0;i<25;i++){
+          const h=document.createElement('i');
+          h.className='fas fa-heart';
+          Object.assign(h.style,{position:'fixed',color:'#e34a62',fontSize:(Math.random()*2.8+1.4)+'rem',left:Math.random()*95+'%',top:Math.random()*90+'%',zIndex:'998',opacity:'0.9',animation:'fall 1.8s ease-out forwards'});
+          document.body.appendChild(h);
+          setTimeout(()=>h.remove(),1800);
+        }
+        setTimeout(()=>m.remove(),3000);
+        if(!playing&&audio) audio.play().catch(()=>{});
+      };
+      mainPhoto.onclick=()=>{ if(photos.length) setMain((cur+1)%photos.length); };
+    })();
+  </script>
+</body>
+</html>
+HTMLEOF
